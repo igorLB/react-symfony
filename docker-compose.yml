@@ -1,0 +1,14 @@
+version: "3.8"
+services:
+  php-server-react:
+    container_name: react-symfony-course
+    image: cedro:php-nginx-js
+    ports:
+      - "81:80"
+    volumes:
+      - .:/var/www
+
+networks:
+  default:
+    external:
+      name: php-server-react_phpapache

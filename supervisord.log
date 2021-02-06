@@ -1,0 +1,8 @@
+2021-02-05 22:58:51,284 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2021-02-05 22:58:51,302 INFO RPC interface 'supervisor' initialized
+2021-02-05 22:58:51,303 CRIT Server 'unix_http_server' running without any HTTP authentication checking
+2021-02-05 22:58:51,304 INFO supervisord started with pid 1
+2021-02-05 22:58:52,307 INFO spawned: 'nginx' with pid 14
+2021-02-05 22:58:52,311 INFO spawned: 'php5-fpm' with pid 15
+2021-02-05 22:58:53,564 INFO success: php5-fpm entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2021-02-05 22:58:57,571 INFO success: nginx entered RUNNING state, process has stayed up for > than 5 seconds (startsecs)
