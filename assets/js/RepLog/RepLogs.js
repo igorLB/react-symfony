@@ -2,8 +2,30 @@ import React, { Component } from "react";
 import RepLogList from './RepLogList';
 import propTypes from 'prop-types';
 
+
+function calculateTotalWeightLifted(repLogs) {
+    let total = 0;
+
+    for (let repLog of repLogs) {
+        total += repLog.totalWeightLifted;
+    }
+
+    return total;
+}
+
+/**
+ * primeiro temos uma arrow function q recebe um unico parametro (repLogs): repLogs => functionBody
+ *  Como ela n tem parenteses, significa q a única linha dela já é o return dela, q nesse caso, o return dela é o .reduce()
+ * Logo no primeiro parametro do reduce nós passamos outra arrow function
+ * 
+ * 
+ * 
+ */
+const calculateTotalWeightFancier = repLogs => repLogs.reduce((total, log) => total + log.totalWeightLifted, 0);
+
+
 export default function RepLogs(props) {
-    const { withHeart, highlightedRowId, onRowClick } = props;
+    const { withHeart, highlightedRowId, onRowClick, repLogs } = props;
 
     let heart = '';
     if (withHeart) {
@@ -27,12 +49,13 @@ export default function RepLogs(props) {
                 <RepLogList 
                     highlightedRowId={highlightedRowId} 
                     onRowClick={onRowClick}
+                    repLogs={repLogs}
                 />
                 <tfoot>
                     <tr>
                         <td>&nbsp;</td>
                         <th>Total</th>
-                        <th>TODO</th>
+                        <th>{calculateTotalWeightFancier(repLogs)} lbs</th>
                         <td>&nbsp;</td>
                     </tr>
                 </tfoot>
@@ -75,5 +98,6 @@ export default function RepLogs(props) {
 RepLogs.propTypes = {
     withHeart : propTypes.bool, 
     highlightedRowId : propTypes.any, 
-    onRowClick : propTypes.func.isRequired
+    onRowClick : propTypes.func.isRequired,
+    repLogs : propTypes.array.isRequired
 };
