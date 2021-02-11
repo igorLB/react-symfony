@@ -23,3 +23,13 @@
 2021-02-10 17:03:00,623 INFO success: php5-fpm entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
 2021-02-10 17:03:04,629 INFO success: nginx entered RUNNING state, process has stayed up for > than 5 seconds (startsecs)
 2021-02-10 17:05:57,176 INFO reaped unknown pid 64 (terminated by SIGINT)
+2021-02-11 11:29:19,997 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2021-02-11 11:29:20,310 INFO RPC interface 'supervisor' initialized
+2021-02-11 11:29:20,310 CRIT Server 'unix_http_server' running without any HTTP authentication checking
+2021-02-11 11:29:20,311 INFO supervisord started with pid 1
+2021-02-11 11:29:21,315 INFO spawned: 'nginx' with pid 33
+2021-02-11 11:29:21,317 INFO spawned: 'php5-fpm' with pid 34
+2021-02-11 11:29:22,461 INFO success: php5-fpm entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2021-02-11 11:29:26,467 INFO success: nginx entered RUNNING state, process has stayed up for > than 5 seconds (startsecs)
+2021-02-11 11:47:55,983 INFO reaped unknown pid 72 (terminated by SIGINT)
+2021-02-11 14:16:19,095 INFO reaped unknown pid 107 (terminated by SIGINT)
