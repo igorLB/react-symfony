@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import RepLogs from './RepLogs';
 import propTypes from 'prop-types';
 import { v4 as uuid} from 'uuid';
-import { getLogReps, getRepLogs } from '../api/rep_log_api';
+import { getRepLogs, deleteRepLog } from '../api/rep_log_api';
 
 export default class RepLogApp extends Component {
 
@@ -15,6 +15,7 @@ export default class RepLogApp extends Component {
             highlightedRowId: null,
             repLogs : [],
             numberOfHearts: 1,
+            isLoaded: false,
         };
 
         this.handleRowClick = this.handleRowClick.bind(this);
@@ -27,7 +28,10 @@ export default class RepLogApp extends Component {
     componentDidMount() {
         getRepLogs()
             .then((data) => {
-                this.setState({repLogs : data})
+                this.setState({
+                    repLogs : data,
+                    isLoaded: true,
+                })
             })
     }
 
@@ -55,6 +59,8 @@ export default class RepLogApp extends Component {
     }
 
     handleDeleteRepLog(id) {
+
+        deleteRepLog(id);
 
         this.setState(prevState => {
             return {
