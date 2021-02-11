@@ -2,26 +2,35 @@ import React, { Component } from "react";
 import RepLogs from './RepLogs';
 import propTypes from 'prop-types';
 import { v4 as uuid} from 'uuid';
+import { getLogReps, getRepLogs } from '../api/rep_log_api';
 
 export default class RepLogApp extends Component {
 
     constructor(props) {
         super(props);
 
+        
+
         this.state = {
             highlightedRowId: null,
-            repLogs : [
-                { id: uuid(), reps: 25, itemLabel: 'My Laptop', totalWeightLifted: 112.5},
-                { id: uuid(), reps: 10, itemLabel: 'Big Fat Cat', totalWeightLifted: 180},
-                { id: uuid(), reps: 4, itemLabel: 'Big Fat Cat', totalWeightLifted: 72},
-            ],
+            repLogs : [],
             numberOfHearts: 1,
         };
 
         this.handleRowClick = this.handleRowClick.bind(this);
         this.handleAddRepLog = this.handleAddRepLog.bind(this);
         this.handleHeartChange = this.handleHeartChange.bind(this);
+        this.handleDeleteRepLog = this.handleDeleteRepLog.bind(this);
     }
+
+
+    componentDidMount() {
+        getRepLogs()
+            .then((data) => {
+                this.setState({repLogs : data})
+            })
+    }
+
 
     handleRowClick(replogid) {
         this.setState({highlightedRowId : replogid})
@@ -37,7 +46,6 @@ export default class RepLogApp extends Component {
 
         this.setState(prevState => {
             const newRepLogs = [...prevState.repLogs, newRep];
-
             return {repLogs: newRepLogs};
         });
     }
@@ -46,6 +54,15 @@ export default class RepLogApp extends Component {
         this.setState({numberOfHearts : heartCount});
     }
 
+    handleDeleteRepLog(id) {
+
+        this.setState(prevState => {
+            return {
+                repLogs: prevState.repLogs.filter(repLog => repLog.id != id)
+            }
+        })
+
+    }
 
     render() {
 
@@ -56,6 +73,7 @@ export default class RepLogApp extends Component {
                 onRowClick={this.handleRowClick}
                 onAddRepLog={this.handleAddRepLog}
                 onHeartChange={this.handleHeartChange}
+                onDeleteRepLog={this.handleDeleteRepLog}
             />
         );
     }
