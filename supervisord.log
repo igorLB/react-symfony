@@ -49,3 +49,6 @@
 2021-02-12 16:09:32,590 INFO spawned: 'php5-fpm' with pid 34
 2021-02-12 16:09:33,923 INFO success: php5-fpm entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
 2021-02-12 16:09:37,929 INFO success: nginx entered RUNNING state, process has stayed up for > than 5 seconds (startsecs)
+2021-02-12 16:32:42,601 INFO reaped unknown pid 71 (terminated by SIGINT)
+2021-02-12 16:35:53,233 INFO reaped unknown pid 105 (terminated by SIGINT)
+2021-02-12 16:36:54,863 INFO reaped unknown pid 138 (terminated by SIGINT)

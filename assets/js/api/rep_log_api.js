@@ -1,7 +1,5 @@
 function fecthJson(url, options) {
-    return fetch(url, Object.assign({
-        credentials: 'same-origin'
-    }, options))
+    return fetch(url, {credentials: 'same-origin', ...options})
         .then(checkStatus)
         .then(response => {
             return response.text()
