@@ -16,6 +16,7 @@ export default class RepLogApp extends Component {
             isLoaded: false,
             isSavingNewRepLog: false,
             successMessage: '',
+            newRepLogValidationErrorMessage: ''
         };
 
         this.successMessageTimeoutHandle = 0;
@@ -68,11 +69,22 @@ export default class RepLogApp extends Component {
                     return {
                         repLogs: newRepLogs,
                         isSavingNewRepLog: false,
+                        newRepLogValidationErrorMessage: '',
                     };
                 });
 
                 this.setSuccessMessage('Rep Log Saved!');
-            });
+            })
+            .catch(error => {
+                error.response.json().then(errorsData => {
+                    console.log(errorsData)
+                    const errors = errorsData.errors;
+                    const firstError = errors[Object.keys(errors)[0]];
+                    this.setState({
+                        newRepLogValidationErrorMessage : firstError
+                    })
+                });
+            })
     }
 
     setSuccessMessage(message) {
@@ -97,13 +109,34 @@ export default class RepLogApp extends Component {
 
     handleDeleteRepLog(id) {
 
-        deleteRepLog(id);
-
-        this.setState(prevState => {
+        /**
+         * Isso daqui é uma gambiarra para adicionar uma nova propriedade a um objeto que está dentro do state
+         * sem fazer uma mutate, pois isso é proibido.
+         */
+        this.setState((prevState) => {
             return {
-                repLogs: prevState.repLogs.filter(repLog => repLog.id != id)
+                repLogs : prevState.repLogs.map(repLog => {
+                    if (repLog.id !== id) {
+                        return repLog;
+                    }
+                    return Object.assign({}, repLog, {isDeleting: true})
+                })
             }
-        })
+        });
+
+        deleteRepLog(id)
+            .then(() => {
+
+                this.setState(prevState => {
+                    return {
+                        repLogs: prevState.repLogs.filter(repLog => repLog.id != id)
+                    }
+                })
+
+                this.setSuccessMessage('Deleted');
+            })
+
+        
 
     }
 
